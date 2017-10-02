@@ -4,16 +4,9 @@
 #include <BlynkSimpleEsp8266.h>
 int moisture_level;
 // You should get Auth Token in the Blynk App.
-// Go to the Project Settings (nut icon).
 char auth[] = "2f0b1ea923a643158a61118703fe89ec";
-char ssid[] = "cute";
-char pass[] = "santusampa";
-/*void myTimerEvent()
-{
-  // You can send any value at any time.
-  // Please don't send more that 10 values per second.
-  Blynk.virtualWrite(V5, millis() / 1000);
-}*/
+char ssid[] = "SSID";
+char pass[] = "PASSWORD";
 int temperature;
 int value;
 void setup()
@@ -27,11 +20,6 @@ void setup()
  // analogWrite(D5,0);
 //  analogWrite(D6,0);
   Blynk.begin(auth, ssid, pass);
-  // You can also specify server:
-  //Blynk.begin(auth, ssid, pass, "blynk-cloud.com", 8442);
-  //Blynk.begin(auth, ssid, pass, IPAddress(192,168,1,100), 8442);
-  //  Blynk.syncVirtual(V3);
-   //timer.setInterval(1000L, myTimerEvent);
 }
   BLYNK_WRITE(V2)
  {
@@ -53,26 +41,22 @@ void loop()
   {
     int buttonState = param.asInt();
   }
-  digitalWrite(D7,buttonState);
+  //digitalWrite(D7,buttonState);
   if(moisture_level>450)
   {
     lcd.print(0,0,"Iam Thristy");
     lcd.print(0,1,"water me");
-   
    Blynk.notify("Hey master , Im thristy");
-   
   }
   else
   {
     lcd.print(0,0,"Iam okay");
     lcd.print(0,1,"thank you");
     Blynk.email("reg farm","happy day");
-    digitalWrite(D6,value);
   }
   int pinData=BLYNK_WRITE(V2);
   digitalWrite(D6,pinData);
   Blynk.run();
-//  timer.run();
 }
 
 
